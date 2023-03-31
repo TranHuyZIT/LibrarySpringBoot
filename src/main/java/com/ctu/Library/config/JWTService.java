@@ -57,7 +57,6 @@ public class JWTService {
             throw new CustomException("JWT expired", HttpStatus.UNAUTHORIZED);
         }
     }
-
     private Key getSecretKey(){
         byte[] KeyBytes = Decoders.BASE64.decode(SECRET_KEY);
         return Keys.hmacShaKeyFor(KeyBytes);
