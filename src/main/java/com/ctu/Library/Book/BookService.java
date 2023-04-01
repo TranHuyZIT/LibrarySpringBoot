@@ -19,6 +19,9 @@ public class BookService {
     private final BookRepository bookRepository;
     private final AddBookMapper addBookMapper;
     private final CategoryService categoryService;
+
+    public Book findById(long id) {return bookRepository.findById(id).orElseThrow(()->new CustomException("Không tìm thấy loại sản phẩm với mã " + id, HttpStatus.NOT_FOUND));}
+
     public List<Book> getAllBooks(){
         return bookRepository.findAll();
     }
