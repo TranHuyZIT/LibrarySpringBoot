@@ -1,5 +1,6 @@
 package com.ctu.Library.Librarian;
 
+import com.ctu.Library.User.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,4 +25,7 @@ public class Librarian {
     private Date dob;
     @Column(nullable = false)
     private String contact;
+    @OneToOne
+    @JoinColumn(name = "user-id", referencedColumnName = "id")
+    private User user;
 }

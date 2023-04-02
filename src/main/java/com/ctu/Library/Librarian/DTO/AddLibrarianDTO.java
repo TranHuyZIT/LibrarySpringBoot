@@ -1,6 +1,5 @@
 package com.ctu.Library.Librarian.DTO;
 
-import com.ctu.Library.User.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,10 +11,10 @@ import java.util.Date;
 @Data
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class LibrarianDTO {
+public class AddLibrarianDTO {
     private Long id;
     private String name;
     private Date dob;
     private String contact;
-    private User user;
+    private Long user;
 }

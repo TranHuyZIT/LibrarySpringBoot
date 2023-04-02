@@ -1,6 +1,7 @@
 package com.ctu.Library.Librarian;
 
 
+import com.ctu.Library.Librarian.DTO.AddLibrarianDTO;
 import com.ctu.Library.Librarian.DTO.LibrarianDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,13 +21,13 @@ public class LibrarianController {
     }
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public LibrarianDTO addLibrarian(@RequestBody Librarian librarian){
-        return librarianService.addLibrarian(librarian);
+    public LibrarianDTO addLibrarian(@RequestBody AddLibrarianDTO addLibrarianDTO){
+        return librarianService.addLibrarian(addLibrarianDTO);
     }
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public LibrarianDTO updateLibrarian(@PathVariable Long id, @RequestBody Librarian newLibrarian){
-        return librarianService.updateLibrarian(id, newLibrarian);
+    public LibrarianDTO updateLibrarian(@PathVariable Long id, @RequestBody AddLibrarianDTO addLibrarianDTO){
+        return librarianService.updateLibrarian(id, addLibrarianDTO);
     }
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
