@@ -15,10 +15,8 @@ import java.util.List;
 public class CategoryService {
     private final CategoryRepository categoryRepository;
     private final CategoryMapper categoryMapper;
-    
     public Category findById(long id) {return categoryRepository.findById(id).orElseThrow(()->new CustomException("Không tìm thấy loại sản phẩm với mã " + id, HttpStatus.NOT_FOUND));}
 
-    
     public List<CategoryDTO> getAllCategories(){
         List<CategoryDTO> result = new ArrayList<>();
         for(Category category : categoryRepository.findAll()){
