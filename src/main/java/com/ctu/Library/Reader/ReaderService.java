@@ -2,6 +2,7 @@ package com.ctu.Library.Reader;
 
 
 import com.ctu.Library.ExceptionHandling.CustomException;
+import com.ctu.Library.PhieuMuon.PhieuMuon;
 import com.ctu.Library.Reader.DTO.AddReaderDTO;
 import com.ctu.Library.Reader.DTO.ReaderDTO;
 import com.ctu.Library.Reader.Mapper.AddReaderMapper;
@@ -9,6 +10,10 @@ import com.ctu.Library.Reader.Mapper.ReaderMapper;
 import com.ctu.Library.User.User;
 import com.ctu.Library.User.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -22,20 +27,19 @@ public class ReaderService {
     private final ReaderMapper readerMapper;
     private final AddReaderMapper addReaderMapper;
     private final UserRepository userRepository;
-    public List<ReaderDTO> getAllReaders(){
-        List<ReaderDTO> result = new ArrayList<>();
-        for(Reader reader : readerRepository.findAll()){
-            result.add(
-                    readerMapper.modelToDTO(reader)
-            );
-        }
-        return result;
-    }
 
-//    public ReaderDTO addReader(Reader reader){
-//
-//        return readerMapper.modelToDTO(readerRepository.save(reader));
-//    }
+
+    public Page<Reader> getAllReaders(Long readerId, Integer pageNo, Integer pageSize, String sortBy, Boolean reverse){
+        if (pageNo == -1){
+            Pageable pageAndSortingRequest = PageRequest.of(0, Integer.MAX_VALUE, Sort.by(reverse? Sort.Direction.DESC : Sort.Direction. ASC, sortBy));
+            return readerRepository.findAll(pageAndSortingRequest);
+        }
+        Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by(reverse ? Sort.Direction.ASC : Sort.Direction.DESC, sortBy));
+        if (readerId != null){
+//            return readerRepository.findAllByReader_Id(readerId, pageable);
+        }
+        return readerRepository.findAll(pageable);
+    }
 
     public ReaderDTO addReader(AddReaderDTO addReaderDTO){
         Reader reader = addReaderMapper.dtoToModel(addReaderDTO);
