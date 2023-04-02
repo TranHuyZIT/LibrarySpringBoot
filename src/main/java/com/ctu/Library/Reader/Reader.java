@@ -6,7 +6,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 @Entity
@@ -30,6 +33,14 @@ public class Reader {
     @Column(nullable = false)
     private String email;
 
+    @CreationTimestamp
+    @Column(updatable = false)
+    Timestamp createdAt;
+
+    @UpdateTimestamp
+    @Column
+    Timestamp updatedAt;
+    
     @OneToOne()
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
