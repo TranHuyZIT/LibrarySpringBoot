@@ -1,6 +1,8 @@
 package com.ctu.Library.PhieuMuon.DTO;
 
+import com.ctu.Library.Librarian.Librarian;
 import com.ctu.Library.PhieuMuonDetail.PhieuMuonDetail;
+import com.ctu.Library.Reader.Reader;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,5 +18,7 @@ import java.util.Set;
 public class PhieuMuonDTO {
     private Date ngayMuon;
     private String note = "";
+    private Librarian librarian;
+    private Reader reader;
     private Set<PhieuMuonDetail> chitiets;
 }

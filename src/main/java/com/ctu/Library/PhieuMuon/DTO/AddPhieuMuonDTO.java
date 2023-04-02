@@ -17,4 +17,6 @@ public class AddPhieuMuonDTO {
     Date ngayMuon;
     String note;
     Set<PhieuMuonDetailDTO> chitiets;
+    Long readerId;
+    Long librarianId;
 }

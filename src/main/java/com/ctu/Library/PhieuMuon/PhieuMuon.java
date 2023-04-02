@@ -1,12 +1,17 @@
 package com.ctu.Library.PhieuMuon;
 
+import com.ctu.Library.Librarian.Librarian;
 import com.ctu.Library.PhieuMuonDetail.PhieuMuonDetail;
+import com.ctu.Library.Reader.Reader;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Set;
 
@@ -26,5 +31,19 @@ public class PhieuMuon {
     private String note = "";
     @OneToMany
     private Set<PhieuMuonDetail> chitiets;
+
+    @ManyToOne
+    private Librarian librarian;
+
+    @ManyToOne
+    private Reader reader;
+
+    @CreationTimestamp
+    @Column(updatable = false)
+    Timestamp createdAt;
+
+    @UpdateTimestamp
+    @Column
+    Timestamp updatedAt;
 
 }
