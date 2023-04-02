@@ -1,5 +1,8 @@
 package com.ctu.Library.BookItem.DTO;
 
+import com.ctu.Library.Enum.TinhTrang;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,6 +15,6 @@ import lombok.RequiredArgsConstructor;
 public class AddBookItemDTO {
     private Boolean trangThai;
     private Integer soLanMuon;
-    private String tinhTrang;
-    private Long book;
+    @Enumerated(EnumType.STRING)
+    private TinhTrang tinhTrang;
 }

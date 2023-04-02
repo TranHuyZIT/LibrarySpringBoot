@@ -2,6 +2,7 @@ package com.ctu.Library.BookItem;
 
 
 import com.ctu.Library.Book.Book;
+import com.ctu.Library.Book.BookRepository;
 import com.ctu.Library.Book.BookService;
 import com.ctu.Library.BookItem.DTO.AddBookItemDTO;
 import com.ctu.Library.BookItem.Mapper.AddBookItemMapper;
@@ -18,10 +19,13 @@ public class BookItemService {
     private final BookItemRepository bookItemRepository;
     private final AddBookItemMapper addBookItemMapper;
     private final BookService bookService;
+    private final BookRepository bookRepository;
     public List<BookItem> getAllBookItems(){
         return bookItemRepository.findAll();
     }
-
+    public void deleteByBookId(Long bookId){
+        bookItemRepository.deleteAll(getAllBookItems());
+    }
     public BookItem addBookItems(AddBookItemDTO addBookItemDTO){
         BookItem bookItem = addBookItemMapper.dtoToModel(addBookItemDTO);
         return bookItemRepository.save(bookItem);
@@ -32,9 +36,7 @@ public class BookItemService {
                 .orElseThrow(()-> new CustomException("Không tìm thấy danh mục với mã:" + id, HttpStatus.NOT_FOUND));
         currentBookItem.setTrangThai(newBookItemDTO.getTrangThai() );
         currentBookItem.setSoLanMuon(newBookItemDTO.getSoLanMuon() );
-        currentBookItem.setTinhTrang(newBookItemDTO.getTinhTrang()) ;
-        Book book = bookService.findById(newBookItemDTO.getBook());
-        currentBookItem.setBook(book);
+        currentBookItem.setTinhTrang(newBookItemDTO.getTinhTrang()) ;;
         return bookItemRepository.save(currentBookItem);
     }
 

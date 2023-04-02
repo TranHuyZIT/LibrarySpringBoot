@@ -1,18 +1,20 @@
 package com.ctu.Library.BookItem;
 
 import com.ctu.Library.Book.Book;
+import com.ctu.Library.Enum.TinhTrang;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
+import net.minidev.json.annotate.JsonIgnore;
 
 @Entity
 @Table(name="bookItem")
 @Builder
 @RequiredArgsConstructor
 @AllArgsConstructor
-@Data
+@Setter
+@Getter
+@EqualsAndHashCode(exclude = "book")
+@ToString(exclude = "book")
 public class BookItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,10 +26,7 @@ public class BookItem {
     @Column(nullable = false)
     private Integer soLanMuon;
 
-    @Column(nullable = false)
-    private String tinhTrang;
+    @Enumerated(EnumType.STRING)
+    private TinhTrang tinhTrang;
 
-    @ManyToOne
-    @JoinColumn(name = "book")
-    private Book book;
 }

@@ -25,10 +25,6 @@ public class AddBookItemMapper {
         bookItem.trangThai(addBookItemDTO.getTrangThai() );
         bookItem.soLanMuon(addBookItemDTO.getSoLanMuon() );
         bookItem.tinhTrang(addBookItemDTO.getTinhTrang() );
-        Book book = bookRepository.findById(
-                addBookItemDTO.getBook()
-        ).orElseThrow(() -> new CustomException("Không tìm thấy danh mục với mã sách: " + addBookItemDTO.getBook(), HttpStatus.NOT_FOUND));
-        bookItem.book(book);
         return bookItem.build();
     }
 }
