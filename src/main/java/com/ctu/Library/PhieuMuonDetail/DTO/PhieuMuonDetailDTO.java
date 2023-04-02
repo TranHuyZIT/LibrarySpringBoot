@@ -1,5 +1,6 @@
 package com.ctu.Library.PhieuMuonDetail.DTO;
 
+import com.ctu.Library.BookItem.BookItem;
 import com.ctu.Library.Enum.TinhTrang;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,4 +16,5 @@ import java.util.Date;
 public class PhieuMuonDetailDTO {
     private TinhTrang tinhTrang;
     private Date hanTra;
+    private BookItem bookItem;
 }
