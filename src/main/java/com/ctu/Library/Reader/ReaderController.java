@@ -1,5 +1,6 @@
 package com.ctu.Library.Reader;
 
+import com.ctu.Library.Reader.DTO.AddReaderDTO;
 import com.ctu.Library.Reader.DTO.ReaderDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,12 +20,12 @@ public class ReaderController {
     }
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ReaderDTO addReader(@RequestBody Reader reader){
-        return readerService.addReader(reader);
+    public ReaderDTO addReader(@RequestBody AddReaderDTO addReaderDTO){
+        return readerService.addReader(addReaderDTO);
     }
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ReaderDTO updateReader(@PathVariable Long id, @RequestBody Reader newReader){
+    public ReaderDTO updateReader(@PathVariable Long id, @RequestBody AddReaderDTO newReader){
         return readerService.updateReader(id, newReader);
     }
     @DeleteMapping("/{id}")
