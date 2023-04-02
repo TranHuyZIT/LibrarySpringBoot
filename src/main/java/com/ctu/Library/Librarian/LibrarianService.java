@@ -8,6 +8,10 @@ import com.ctu.Library.Librarian.Mapper.LibrarianMapper;
 import com.ctu.Library.User.User;
 import com.ctu.Library.User.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -22,14 +26,16 @@ public class LibrarianService {
     private final LibrarianMapper librarianMapper;
     private final UserRepository userRepository;
 
-    public List<LibrarianDTO> getAllLibrarians() {
-        List<LibrarianDTO> result = new ArrayList<>();
-        for(Librarian librarian : librarianRepository.findAll()) {
-            result.add(
-              librarianMapper.modelToDto(librarian)
-            );
+    public Page<Librarian> getAllLibrarians(Long readerId, Integer pageNo, Integer pageSize, String sortBy, Boolean reverse) {
+        if (pageNo == -1){
+            Pageable pageAndSortingRequest = PageRequest.of(0, Integer.MAX_VALUE, Sort.by(reverse? Sort.Direction.DESC : Sort.Direction. ASC, sortBy));
+            return librarianRepository.findAll(pageAndSortingRequest);
         }
-        return result;
+        Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by(reverse ? Sort.Direction.ASC : Sort.Direction.DESC, sortBy));
+        if (readerId != null){
+//            return librarianRepository.findAllByReader_Id(readerId, pageable);
+        }
+        return librarianRepository.findAll(pageable);
     }
 
     public LibrarianDTO addLibrarian(AddLibrarianDTO addLibrarianDTO) {
