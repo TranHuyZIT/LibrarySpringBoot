@@ -57,9 +57,6 @@ public class JWTService {
             throw new CustomException("JWT expired", HttpStatus.UNAUTHORIZED);
         }
     }
-    public void throwExpiredError(String authHeader,String token){
-        throw new ExpiredJwtException(null, this.extractAllClaims(token), "");
-    }
     private Key getSecretKey(){
         byte[] KeyBytes = Decoders.BASE64.decode(SECRET_KEY);
         return Keys.hmacShaKeyFor(KeyBytes);
