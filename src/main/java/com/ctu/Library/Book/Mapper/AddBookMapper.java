@@ -28,7 +28,7 @@ public class AddBookMapper {
         Category category = categoryRepository.findById(
                 addBookDTO.getCategoryId()
         ).orElseThrow(()-> new CustomException("Không tìm thấy danh mục với mã thể loại" + addBookDTO.getCategoryId(), HttpStatus.NOT_FOUND));
-        book.categoryId(category);
+        book.category(category);
         return book.build();
     }
 
