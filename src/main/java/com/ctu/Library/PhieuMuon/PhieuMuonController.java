@@ -25,7 +25,7 @@ public class PhieuMuonController {
     ){
         return phieuMuonService.getAll(readerId, pageNo, pageSize, sortBy, reverse);
     }
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     public PhieuMuon delete(@PathVariable Long id){
         return phieuMuonService.delete(id);
     }

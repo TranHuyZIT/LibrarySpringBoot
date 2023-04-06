@@ -33,7 +33,7 @@ public class Book {
     private String tacGia;
     @ManyToOne
     @JoinColumn(name = "category_id")
-    private Category categoryId;
+    private Category category;
 
     @OneToMany
     @JsonIgnore
