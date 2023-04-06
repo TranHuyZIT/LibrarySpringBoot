@@ -16,7 +16,7 @@ import java.util.Set;
 @RequiredArgsConstructor
 @AllArgsConstructor
 public class PhieuGHanDTO {
-    private Date ngayTra;
+    private Date ngayGHan;
     private String note = "";
     private Set<PhieuGHanDetail> chitiets;
     private Librarian librarian;

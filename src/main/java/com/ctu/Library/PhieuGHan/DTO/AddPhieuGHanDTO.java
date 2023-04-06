@@ -1,6 +1,6 @@
 package com.ctu.Library.PhieuGHan.DTO;
 
-import com.ctu.Library.PhieuGHanDetail.DTO.PhieuGHanDetailDTO;
+import com.ctu.Library.PhieuGHanDetail.DTO.AddPhieuGHanDetailDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,9 +14,9 @@ import java.util.Set;
 @RequiredArgsConstructor
 @AllArgsConstructor
 public class AddPhieuGHanDTO {
-    Date ngayTra;
+    Date ngayGHan;
     String note = "";
-    Set<PhieuGHanDetailDTO> chitiets;
-    Long librarian;
-    Long reader;
+    Set<AddPhieuGHanDetailDTO> chitiets;
+    Long librarianId;
+    Long readerId;
 }

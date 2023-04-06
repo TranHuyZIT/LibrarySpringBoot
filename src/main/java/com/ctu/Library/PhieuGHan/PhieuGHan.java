@@ -14,7 +14,7 @@ import java.util.Set;
 
 @SuppressWarnings("ALL")
 @Entity
-@Table(name = "phieu_tra")
+@Table(name = "phieu_ghan")
 @Data
 @Builder
 @AllArgsConstructor
@@ -24,16 +24,16 @@ public class PhieuGHan {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
-    private Date ngayTra;
+    private Date ngayGHan;
     @Column
     private String note = "";
     @OneToMany
     private Set<PhieuGHanDetail> chitiets;
 
-    @OneToMany
+    @ManyToOne
     private Librarian librarian;
 
-    @OneToMany
+    @ManyToOne
     private Reader reader;
 
     @CreationTimestamp
