@@ -68,7 +68,7 @@ public class BookService {
         currentBook.setNamXB(newBookDTO.getNamXB());
         currentBook.setTacGia(newBookDTO.getTacGia());
         Category category = categoryService.findById(newBookDTO.getCategoryId());
-        currentBook.setCategoryId(category);
+        currentBook.setCategory(category);
         return bookRepository.save(currentBook);
     }
 
