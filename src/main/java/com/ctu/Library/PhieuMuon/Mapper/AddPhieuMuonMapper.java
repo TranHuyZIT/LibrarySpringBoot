@@ -47,7 +47,7 @@ public class AddPhieuMuonMapper {
         Librarian librarian = librarianRepository.findById(addPhieuMuonDTO.getLibrarianId()).orElseThrow(
                 () -> new CustomException("Không tồn tại thủ thư với mã " + addPhieuMuonDTO.getLibrarianId(), HttpStatus.NOT_FOUND)
         );
-        System.out.println(reader);
+
 
         phieuMuon.reader(reader);
         phieuMuon.librarian(librarian);
