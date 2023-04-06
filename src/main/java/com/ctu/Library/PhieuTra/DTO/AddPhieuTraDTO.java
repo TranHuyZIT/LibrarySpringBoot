@@ -1,7 +1,6 @@
-package com.ctu.Library.PhieuMuon.DTO;
+package com.ctu.Library.PhieuTra.DTO;
 
-import com.ctu.Library.PhieuMuonDetail.DTO.AddPhieuMuonDetailDTO;
-import com.ctu.Library.PhieuMuonDetail.DTO.PhieuMuonDetailDTO;
+import com.ctu.Library.PhieuTraDetail.DTO.AddPhieuTraDetailDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,10 +13,10 @@ import java.util.Set;
 @Builder
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class AddPhieuMuonDTO {
-    Date ngayMuon;
+public class AddPhieuTraDTO {
+    Date ngayTra;
     String note;
-    Set<AddPhieuMuonDetailDTO> chitiets;
+    Set<AddPhieuTraDetailDTO> chitiets;
     Long readerId;
     Long librarianId;
 }

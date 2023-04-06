@@ -5,7 +5,9 @@ import com.ctu.Library.Librarian.Librarian;
 import com.ctu.Library.Librarian.LibrarianRepository;
 import com.ctu.Library.PhieuMuon.DTO.AddPhieuMuonDTO;
 import com.ctu.Library.PhieuMuon.PhieuMuon;
+import com.ctu.Library.PhieuMuonDetail.DTO.AddPhieuMuonDetailDTO;
 import com.ctu.Library.PhieuMuonDetail.DTO.PhieuMuonDetailDTO;
+import com.ctu.Library.PhieuMuonDetail.Mapper.AddPhieuMuonDetailMapper;
 import com.ctu.Library.PhieuMuonDetail.Mapper.PhieuMuonDetailMapper;
 import com.ctu.Library.PhieuMuonDetail.PhieuMuonDetail;
 import com.ctu.Library.PhieuMuonDetail.PhieuMuonDetailRepository;
@@ -22,6 +24,7 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class AddPhieuMuonMapper {
     private final PhieuMuonDetailMapper phieuMuonDetailMapper;
+    private final AddPhieuMuonDetailMapper addPhieuMuonDetailMapper;
     private final ReaderRepository readerRepository;
     private final LibrarianRepository librarianRepository;
     private final PhieuMuonDetailRepository phieuMuonDetailRepository;
@@ -33,9 +36,9 @@ public class AddPhieuMuonMapper {
         phieuMuon.ngayMuon(addPhieuMuonDTO.getNgayMuon());
         phieuMuon.note(addPhieuMuonDTO.getNote());
         Set<PhieuMuonDetail> chitiets = new HashSet<>();
-        for(PhieuMuonDetailDTO chitiet: addPhieuMuonDTO.getChitiets()){
+        for(AddPhieuMuonDetailDTO chitiet: addPhieuMuonDTO.getChitiets()){
             PhieuMuonDetail newDetail = phieuMuonDetailRepository.save(
-                    phieuMuonDetailMapper.dtoToModel(chitiet)
+                    addPhieuMuonDetailMapper.dtoToModel(chitiet)
             );
             chitiets.add(
                     newDetail

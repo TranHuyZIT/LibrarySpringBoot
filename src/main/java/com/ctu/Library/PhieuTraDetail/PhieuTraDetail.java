@@ -1,8 +1,7 @@
-package com.ctu.Library.PhieuMuonDetail;
+package com.ctu.Library.PhieuTraDetail;
 
 import com.ctu.Library.BookItem.BookItem;
 import com.ctu.Library.Enum.TinhTrang;
-import com.ctu.Library.PhieuMuon.PhieuMuon;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,14 +15,12 @@ import java.util.Date;
 @Builder
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class PhieuMuonDetail {
+public class PhieuTraDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Enumerated(EnumType.STRING)
     private TinhTrang tinhTrang;
-    @Column(nullable = false)
-    private Date hanTra;
     @ManyToOne
     private BookItem bookItem;
 }
