@@ -20,7 +20,6 @@ import org.springframework.stereotype.Component;
 import java.util.HashSet;
 import java.util.Set;
 
-
 @Component
 @RequiredArgsConstructor
 public class AddPhieuMuonMapper {
@@ -50,8 +49,6 @@ public class AddPhieuMuonMapper {
         Librarian librarian = librarianRepository.findById(addPhieuMuonDTO.getLibrarianId()).orElseThrow(
                 () -> new CustomException("Không tồn tại thủ thư với mã " + addPhieuMuonDTO.getLibrarianId(), HttpStatus.NOT_FOUND)
         );
-
-
         phieuMuon.reader(reader);
         phieuMuon.librarian(librarian);
         phieuMuon.chitiets(chitiets);

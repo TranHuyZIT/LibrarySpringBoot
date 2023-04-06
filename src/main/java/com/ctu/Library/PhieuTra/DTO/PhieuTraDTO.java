@@ -2,6 +2,7 @@ package com.ctu.Library.PhieuTra.DTO;
 
 import com.ctu.Library.Librarian.Librarian;
 import com.ctu.Library.PhieuMuonDetail.PhieuMuonDetail;
+import com.ctu.Library.PhieuTraDetail.PhieuTraDetail;
 import com.ctu.Library.Reader.Reader;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,5 +21,5 @@ public class PhieuTraDTO {
     private String note = "";
     private Librarian librarian;
     private Reader reader;
-    private Set<PhieuMuonDetail> chitiets;
+    private Set<PhieuTraDetail> chitiets;
 }
