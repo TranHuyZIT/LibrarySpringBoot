@@ -11,6 +11,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
+import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @Builder
@@ -20,10 +22,12 @@ import java.util.Set;
 public class BookDTO {
     private Long id;
     private String ten;
-    private String namXB;
+    private String mota;
+    private String image;
+    private Date namXB;
     private String tacGia;
-    private Category categoryId;
-    private Set<BookItem> listBookItem;
+    private Category category;
+    private List<BookItem> listBookItem;
     private Timestamp createdAt;
     private Timestamp updatedAt;
 }

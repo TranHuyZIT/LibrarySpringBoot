@@ -21,14 +21,15 @@ public class AddBookMapper {
             return null;
         }
         Book.BookBuilder book = Book.builder();
-//        book.id(addBookDTO.getId() );
         book.ten(addBookDTO.getTen() );
+        book.mota(addBookDTO.getMota());
+        book.image(addBookDTO.getImage());
         book.namXB(addBookDTO.getNamXB() );
         book.tacGia(addBookDTO.getTacGia() );
         Category category = categoryRepository.findById(
                 addBookDTO.getCategoryId()
         ).orElseThrow(()-> new CustomException("Không tìm thấy danh mục với mã thể loại" + addBookDTO.getCategoryId(), HttpStatus.NOT_FOUND));
-        book.categoryId(category);
+        book.category(category);
         return book.build();
     }
 

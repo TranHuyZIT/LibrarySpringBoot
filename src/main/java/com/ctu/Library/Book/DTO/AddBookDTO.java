@@ -8,6 +8,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
+import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @Builder
@@ -16,8 +18,10 @@ import java.util.Set;
 @AllArgsConstructor
 public class AddBookDTO {
     private String ten;
-    private String namXB;
+    private String mota;
+    private String image;
+    private Date namXB;
     private String tacGia;
     private Long categoryId;
-    private Set<AddBookItemDTO> listBookItem;
+    private List<AddBookItemDTO> listBookItem;
 }

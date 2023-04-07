@@ -11,7 +11,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 @RequestMapping("/api/v1/book")
 @RequiredArgsConstructor
@@ -21,11 +24,21 @@ public class BookController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public Page<Book> getAllBooks(
+            @RequestParam(defaultValue = "", name = "categoryIds") String categoryIds,
+            @RequestParam(defaultValue = "", name = "name") String name,
             @RequestParam(defaultValue = "0", name="pageNo") Integer pageNo,
             @RequestParam(defaultValue = "10", name="pageSize") Integer pageSize,
             @RequestParam(defaultValue = "createdAt", name="sortBy") String sortBy,
             @RequestParam(defaultValue = "true", name="reverse") boolean reverse
-    ){return bookService.getAllBooks(pageNo, pageSize, sortBy, reverse);}
+    ){
+      List<Long> categoryLongs = new ArrayList<>();
+      if (!Objects.equals(categoryIds, "")){
+        System.out.println("Down here");
+        System.out.println(categoryIds);
+        categoryLongs = Arrays.stream(categoryIds.split(",")).map(Long::parseLong).toList();
+      }
+      return bookService.getAllBooks(categoryLongs, name, pageNo - 1, pageSize, sortBy, reverse);
+    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -37,6 +50,12 @@ public class BookController {
     @ResponseStatus(HttpStatus.OK)
     public Book updateBooks(@PathVariable Long id, @RequestBody AddBookDTO updateBook){
         return bookService.updateBook(id, updateBook);
+    }
+
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Book findOne(@PathVariable Long id){
+      return bookService.findOne(id);
     }
 
     @DeleteMapping("/{id}")
