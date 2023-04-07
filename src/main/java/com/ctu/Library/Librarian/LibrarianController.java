@@ -4,6 +4,7 @@ package com.ctu.Library.Librarian;
 import com.ctu.Library.Librarian.DTO.AddLibrarianDTO;
 import com.ctu.Library.Librarian.DTO.LibrarianDTO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,8 +17,14 @@ public class LibrarianController {
     private final LibrarianService librarianService;
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<LibrarianDTO> getAllLibrarians(){
-        return librarianService.getAllLibrarians();
+    public Page<Librarian> getAllLibrarians(
+            @RequestParam (defaultValue = "", name = "readerId") Long readerId,
+            @RequestParam(defaultValue = "0", name="pageNo") Integer pageNo,
+            @RequestParam(defaultValue = "10", name="pageSize") Integer pageSize,
+            @RequestParam(defaultValue = "createdAt", name="sortBy") String sortBy,
+            @RequestParam(defaultValue = "true", name="reverse") boolean reverse
+    ){
+        return librarianService.getAllLibrarians(readerId, pageNo, pageSize, sortBy, reverse);
     }
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
