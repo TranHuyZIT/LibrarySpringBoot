@@ -21,8 +21,9 @@ public class AddBookMapper {
             return null;
         }
         Book.BookBuilder book = Book.builder();
-//        book.id(addBookDTO.getId() );
         book.ten(addBookDTO.getTen() );
+        book.mota(addBookDTO.getMota());
+        book.image(addBookDTO.getImage());
         book.namXB(addBookDTO.getNamXB() );
         book.tacGia(addBookDTO.getTacGia() );
         Category category = categoryRepository.findById(

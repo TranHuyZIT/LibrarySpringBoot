@@ -20,10 +20,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 
 @Service
@@ -39,12 +36,26 @@ public class BookService {
 
     public Book findById(long id) {return bookRepository.findById(id).orElseThrow(()->new CustomException("Không tìm thấy loại sản phẩm với mã " + id, HttpStatus.NOT_FOUND));}
 
-    public Page<Book> getAllBooks(Integer pageNo, Integer pageSize, String sortBy, Boolean reverse){
+    public Page<Book> getAllBooks(List<Long> categoryIds,String name, Integer pageNo, Integer pageSize, String sortBy, Boolean reverse){
+        Pageable pageable;
         if (pageNo == -1){
-            Pageable pageAndSortingRequest = PageRequest.of(0, Integer.MAX_VALUE, Sort.by(reverse? Sort.Direction.DESC : Sort.Direction. ASC, sortBy));
-            return bookRepository.findAll(pageAndSortingRequest);
+             pageable = PageRequest.of(0, Integer.MAX_VALUE, Sort.by(reverse? Sort.Direction.DESC : Sort.Direction. ASC, sortBy));
+              if (!Objects.equals(name, "") || !categoryIds.isEmpty()){
+                if (categoryIds.isEmpty()){
+                  return  bookRepository.findAllByTenContaining(name, pageable);
+                }
+                return bookRepository.findAllByFilters(name, categoryIds, pageable);
+              }
+              return bookRepository.findAll(pageable);
         }
-        Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by(reverse ? Sort.Direction.ASC : Sort.Direction.DESC, sortBy));
+        pageable = PageRequest.of(pageNo, pageSize, Sort.by(reverse ? Sort.Direction.ASC : Sort.Direction.DESC, sortBy));
+
+        if (!Objects.equals(name, "") || !categoryIds.isEmpty()){
+          if (categoryIds.isEmpty()){
+            return  bookRepository.findAllByTenContaining(name, pageable);
+          }
+          return bookRepository.findAllByFilters(name, categoryIds, pageable);
+        }
         return bookRepository.findAll(pageable);
     }
 
@@ -52,10 +63,10 @@ public class BookService {
     public Book addBook(AddBookDTO addBookDTO){
         System.out.println(addBookDTO.getListBookItem());
         Book book =  addBookMapper.dtoToModel(addBookDTO);
-        Set<BookItem> bookItemSet = new HashSet<>();
+
+        List<BookItem> bookItemSet = new ArrayList<>();
         for (AddBookItemDTO addBookItemDTO: addBookDTO.getListBookItem()){
-            bookItemService.addBookItems(addBookItemDTO);
-            bookItemSet.add(bookItemService.addBookItems(addBookItemDTO));
+          bookItemSet.add(bookItemService.addBookItems(addBookItemDTO));
         }
         book.setListBookItem(bookItemSet);
         return bookRepository.save(book);
@@ -69,7 +80,19 @@ public class BookService {
         currentBook.setTacGia(newBookDTO.getTacGia());
         Category category = categoryService.findById(newBookDTO.getCategoryId());
         currentBook.setCategory(category);
+
+        List<BookItem> bookItemSet = new ArrayList<>();
+        for (AddBookItemDTO addBookItemDTO: newBookDTO.getListBookItem()){
+          bookItemSet.add(bookItemService.addBookItems(addBookItemDTO));
+        }
+        currentBook.setListBookItem(bookItemSet);
+
         return bookRepository.save(currentBook);
+    }
+    public Book findOne(Long id){
+      return bookRepository.findById(id).orElseThrow(
+        () -> new CustomException("Không tồn tại sách với mã " + id, HttpStatus.NOT_FOUND)
+      );
     }
 
     public Book deleteBook(Long id){
