@@ -22,15 +22,17 @@ public class Librarian {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false)
+    @Column
     private String name;
-    @Column(nullable = false)
+    @Column
     private Date dob;
-    @Column(nullable = false)
+    @Column
     private String contact;
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
+    @Column
+    boolean hasUpdateInfo = false;
 
     @CreationTimestamp
     @Column(updatable = false)
