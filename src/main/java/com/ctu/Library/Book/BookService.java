@@ -80,11 +80,13 @@ public class BookService {
         currentBook.setTacGia(newBookDTO.getTacGia());
         Category category = categoryService.findById(newBookDTO.getCategoryId());
         currentBook.setCategory(category);
+
         List<BookItem> bookItemSet = new ArrayList<>();
         for (AddBookItemDTO addBookItemDTO: newBookDTO.getListBookItem()){
           bookItemSet.add(bookItemService.addBookItems(addBookItemDTO));
         }
         currentBook.setListBookItem(bookItemSet);
+
         return bookRepository.save(currentBook);
     }
     public Book findOne(Long id){

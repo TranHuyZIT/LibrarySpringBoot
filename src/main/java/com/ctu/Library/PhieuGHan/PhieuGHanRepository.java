@@ -1,12 +1,10 @@
-package com.ctu.Library.Librarian;
+package com.ctu.Library.PhieuGHan;
 
-import com.ctu.Library.PhieuMuon.PhieuMuon;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
 @Repository
-public interface LibrarianRepository extends JpaRepository<Librarian, Long> {
-    Page<Librarian> findAll(Pageable pageable);
+public interface PhieuGHanRepository extends JpaRepository<PhieuGHan, Long> {
+    Page<PhieuGHan> findAll(Pageable pageable);
 }
