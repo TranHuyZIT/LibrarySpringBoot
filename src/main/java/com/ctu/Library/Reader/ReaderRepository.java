@@ -10,4 +10,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ReaderRepository extends JpaRepository<Reader, Long> {
     Page<Reader> findAll(Pageable pageable);
+    Reader findAllByUser_Id(Long userId);
 }

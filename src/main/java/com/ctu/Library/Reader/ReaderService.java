@@ -40,7 +40,9 @@ public class ReaderService {
         }
         return readerRepository.findAll(pageable);
     }
-
+    public Reader getReader( Long id){
+        return readerRepository.findAllByUser_Id(id);
+    }
     public ReaderDTO addReader(AddReaderDTO addReaderDTO){
         Reader reader = addReaderMapper.dtoToModel(addReaderDTO);
         return readerMapper.modelToDTO(readerRepository.save(reader));
