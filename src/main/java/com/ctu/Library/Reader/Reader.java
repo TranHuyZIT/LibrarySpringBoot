@@ -22,15 +22,15 @@ public class Reader {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false)
+    @Column
     private String name;
-    @Column(nullable = false)
+    @Column
     private Date birth;
-    @Column(nullable = false)
+    @Column
     private String address;
-    @Column(nullable = false)
+    @Column
     private String phone;
-    @Column(nullable = false)
+    @Column
     private String email;
 
     @CreationTimestamp
@@ -40,8 +40,11 @@ public class Reader {
     @UpdateTimestamp
     @Column
     Timestamp updatedAt;
-    
+
     @OneToOne()
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
+
+    @Column
+    boolean hasUpdateInfo = false;
 }
