@@ -46,7 +46,7 @@ public class AuthService {
                 .gender(request.getGender())
                 .build();
         User newUser = userRepository.save(user);
-        Reader reader = Reader.builder().user(newUser).build();
+        Reader reader = Reader.builder().user(newUser).hasUpdateInfo(false).build();
         readerRepository.save(reader);
         String token = jwtService.signToken(user);
         return AuthenticateResponse.builder()
@@ -76,7 +76,7 @@ public class AuthService {
             .build();
       User newUser = userRepository.save(user);
       String token = jwtService.signToken(user);
-      Librarian librarian = Librarian.builder().user(newUser).build();
+      Librarian librarian = Librarian.builder().user(newUser).hasUpdateInfo(false).build();
       librarianRepository.save(librarian);
       return AuthenticateResponse.builder()
             .token(token)
