@@ -36,4 +36,5 @@ public class CategoryService {
         Category saved = categoryRepository.save(currentCategory);
         return categoryMapper.modelToDTO(saved);
     }
+
 }
