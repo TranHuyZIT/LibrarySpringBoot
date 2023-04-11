@@ -1,7 +1,9 @@
 package com.ctu.Library.BookItem;
 
 import com.ctu.Library.Book.Book;
+import com.ctu.Library.Category.Category;
 import com.ctu.Library.Enum.TinhTrang;
+import com.ctu.Library.Reader.Reader;
 import jakarta.persistence.*;
 import lombok.*;
 import net.minidev.json.annotate.JsonIgnore;
@@ -28,5 +30,9 @@ public class BookItem {
 
     @Enumerated(EnumType.STRING)
     private TinhTrang tinhTrang;
+
+    @ManyToOne
+    @JoinColumn(name = "reader_id")
+    private Reader reader;
 
 }

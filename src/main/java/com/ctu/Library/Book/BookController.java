@@ -3,6 +3,7 @@ package com.ctu.Library.Book;
 import com.ctu.Library.Book.DTO.AddBookDTO;
 import com.ctu.Library.Book.Mapper.AddBookMapper;
 import com.ctu.Library.BookItem.BookItem;
+import com.ctu.Library.BookItem.BookItemService;
 import com.ctu.Library.BookItem.DTO.AddBookItemDTO;
 import com.ctu.Library.Category.Category;
 import com.ctu.Library.config.JsonArg;
@@ -20,7 +21,8 @@ import java.util.Objects;
 @RequiredArgsConstructor
 @RestController
 public class BookController {
-    private final BookService bookService;
+  private final BookService bookService;
+  private final BookItemService bookItemService;
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public Page<Book> getAllBooks(
@@ -57,6 +59,8 @@ public class BookController {
     public Book findOne(@PathVariable Long id){
       return bookService.findOne(id);
     }
+
+
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
