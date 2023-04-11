@@ -20,9 +20,12 @@ public class BookItemService {
     private final AddBookItemMapper addBookItemMapper;
     private final BookService bookService;
     private final BookRepository bookRepository;
-    public List<BookItem> getAllBookItems(){
-        return bookItemRepository.findAll();
+    public List<BookItem> getAllBookItems(Long readerId){
+        return bookItemRepository.findByReaderId(readerId);
     }
+    public List<BookItem> getAllBookItems(){
+      return bookItemRepository.findAll();
+  }
     public void deleteByBookId(Long bookId){
         bookItemRepository.deleteAll(getAllBookItems());
     }
