@@ -9,4 +9,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface LibrarianRepository extends JpaRepository<Librarian, Long> {
     Page<Librarian> findAll(Pageable pageable);
+    Librarian findOneByUser_Id(Long userId);
 }

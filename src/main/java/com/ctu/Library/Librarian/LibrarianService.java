@@ -26,15 +26,13 @@ public class LibrarianService {
     private final LibrarianMapper librarianMapper;
     private final UserRepository userRepository;
 
-    public Page<Librarian> getAllLibrarians(Long readerId, Integer pageNo, Integer pageSize, String sortBy, Boolean reverse) {
+    public Page<Librarian> getAllLibrarians(Integer pageNo, Integer pageSize, String sortBy, Boolean reverse) {
         if (pageNo == -1){
             Pageable pageAndSortingRequest = PageRequest.of(0, Integer.MAX_VALUE, Sort.by(reverse? Sort.Direction.DESC : Sort.Direction. ASC, sortBy));
             return librarianRepository.findAll(pageAndSortingRequest);
         }
         Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by(reverse ? Sort.Direction.ASC : Sort.Direction.DESC, sortBy));
-        if (readerId != null){
-//            return librarianRepository.findAllByReader_Id(readerId, pageable);
-        }
+
         return librarianRepository.findAll(pageable);
     }
 
@@ -58,5 +56,9 @@ public class LibrarianService {
         currentLibrarian.setUser(userRepository.findById(addLibrarianDTO.getUser()).orElseThrow(() -> new CustomException("Không tìm thấy danh mục với mã " + addLibrarianDTO.getUser(), HttpStatus.NOT_FOUND)));
         Librarian saved = librarianRepository.save(currentLibrarian);
         return librarianMapper.modelToDto(saved);
+    }
+
+    public Librarian getLibrarian(long id) {
+        return librarianRepository.findOneByUser_Id(id);
     }
 }
