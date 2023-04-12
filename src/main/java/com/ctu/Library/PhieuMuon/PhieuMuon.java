@@ -37,6 +37,8 @@ public class PhieuMuon {
 
     @ManyToOne
     private Reader reader;
+    @Column
+    private boolean isChecked = false;
 
     @CreationTimestamp
     @Column(updatable = false)

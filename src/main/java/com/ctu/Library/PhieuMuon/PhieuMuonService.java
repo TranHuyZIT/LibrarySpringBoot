@@ -28,6 +28,25 @@ public class PhieuMuonService {
                 saved
         );
     }
+    public PhieuMuonDTO updatePhieuMuon(Long id, AddPhieuMuonDTO addPhieuMuonDTO){
+      PhieuMuon currentPhieuMuon = phieuMuonRepository.findById(id).orElseThrow(
+        () -> new CustomException("Không tồn tại phiếu mượn này", HttpStatus.NOT_FOUND));
+      PhieuMuon newPhieuMuon = addPhieuMuonMapper.dtoToModel(addPhieuMuonDTO);
+      currentPhieuMuon.setNgayMuon(newPhieuMuon.getNgayMuon());
+      currentPhieuMuon.setNote(newPhieuMuon.getNote());
+      currentPhieuMuon.setChecked(newPhieuMuon.isChecked());
+      if (newPhieuMuon.getLibrarian() != null){
+        currentPhieuMuon.setLibrarian(newPhieuMuon.getLibrarian());
+      }
+      if(newPhieuMuon.getReader() != null){
+        currentPhieuMuon.setReader(newPhieuMuon.getReader());
+      }
+      PhieuMuon saved =phieuMuonRepository.save(currentPhieuMuon);
+      return phieuMuonMapper.modelToDTO(
+        saved
+      );
+
+    }
     public Page<PhieuMuon> getAll(Long readerId, Integer pageNo, Integer pageSize, String sortBy, Boolean reverse){
         if (pageNo == -1){
             Pageable pageAndSortingRequest = PageRequest.of(0, Integer.MAX_VALUE, Sort.by(reverse? Sort.Direction.DESC : Sort.Direction. ASC, sortBy));

@@ -19,6 +19,8 @@ public class PhieuMuonDTO {
     private Date ngayMuon;
     private String note = "";
     private Librarian librarian;
+    private boolean isChecked = false;
+
     private Reader reader;
     private Set<PhieuMuonDetail> chitiets;
 }
