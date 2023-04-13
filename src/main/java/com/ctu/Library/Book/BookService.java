@@ -29,6 +29,7 @@ public class BookService {
     private final BookRepository bookRepository;
     private final AddBookMapper addBookMapper;
     private final CategoryService categoryService;
+    private final BookItemRepository bookItemRepository;
     @Lazy
     @Autowired
     private BookItemService bookItemService;
@@ -63,12 +64,16 @@ public class BookService {
     public Book addBook(AddBookDTO addBookDTO){
         System.out.println(addBookDTO.getListBookItem());
         Book book =  addBookMapper.dtoToModel(addBookDTO);
-
+        book.setListBookItem(new ArrayList<>());
+        Book saved = bookRepository.save(book);
         List<BookItem> bookItemSet = new ArrayList<>();
         for (AddBookItemDTO addBookItemDTO: addBookDTO.getListBookItem()){
-          bookItemSet.add(bookItemService.addBookItems(addBookItemDTO));
+            addBookItemDTO.setBookId(saved.getId());
+            BookItem bookItem = bookItemService.addBookItems(addBookItemDTO);
+            bookItemSet.add(bookItem);
         }
         book.setListBookItem(bookItemSet);
+        System.out.println(book);
         return bookRepository.save(book);
     }
 

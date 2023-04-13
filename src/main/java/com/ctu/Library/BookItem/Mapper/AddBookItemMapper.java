@@ -26,6 +26,7 @@ public class AddBookItemMapper {
         bookItem.soLanMuon(addBookItemDTO.getSoLanMuon() );
         bookItem.tinhTrang(addBookItemDTO.getTinhTrang() );
         bookItem.reader(addBookItemDTO.getReader());
+        bookItem.bookId(addBookItemDTO.getBookId());
         return bookItem.build();
     }
 }
