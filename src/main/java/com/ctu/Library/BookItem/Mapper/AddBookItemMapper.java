@@ -25,6 +25,7 @@ public class AddBookItemMapper {
         bookItem.trangThai(addBookItemDTO.getTrangThai() );
         bookItem.soLanMuon(addBookItemDTO.getSoLanMuon() );
         bookItem.tinhTrang(addBookItemDTO.getTinhTrang() );
+        bookItem.reader(addBookItemDTO.getReader());
         return bookItem.build();
     }
 }

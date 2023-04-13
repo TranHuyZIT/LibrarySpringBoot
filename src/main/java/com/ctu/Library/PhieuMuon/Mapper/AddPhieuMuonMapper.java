@@ -36,6 +36,7 @@ public class AddPhieuMuonMapper {
         PhieuMuon.PhieuMuonBuilder phieuMuon = PhieuMuon.builder();
         phieuMuon.ngayMuon(addPhieuMuonDTO.getNgayMuon());
         phieuMuon.note(addPhieuMuonDTO.getNote());
+        phieuMuon.isChecked(addPhieuMuonDTO.isChecked());
         Set<PhieuMuonDetail> chitiets = new HashSet<>();
         for(AddPhieuMuonDetailDTO chitiet: addPhieuMuonDTO.getChitiets()){
             PhieuMuonDetail newDetail = phieuMuonDetailRepository.save(

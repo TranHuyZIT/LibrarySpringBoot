@@ -7,4 +7,5 @@ import java.util.List;
 
 @Repository
 public interface BookItemRepository extends JpaRepository<BookItem, Long> {
+  List<BookItem> findByReaderId(Long readerId);
 }

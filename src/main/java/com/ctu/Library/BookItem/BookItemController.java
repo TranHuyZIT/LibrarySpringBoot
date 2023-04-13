@@ -29,4 +29,9 @@ public class BookItemController {
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public BookItem deleteBookItems(@PathVariable Long id){return bookItemService.deleteBookItem(id);}
+    @GetMapping("/reader/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<BookItem> getAllBorrowed(@PathVariable Long id){
+      return bookItemService.getAllBookItems(id);
+    }
 }
