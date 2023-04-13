@@ -1,5 +1,6 @@
 package com.ctu.Library.BookItem.DTO;
 
+import com.ctu.Library.Book.Book;
 import com.ctu.Library.Enum.TinhTrang;
 import com.ctu.Library.Reader.Reader;
 import jakarta.persistence.EnumType;
@@ -19,4 +20,5 @@ public class AddBookItemDTO {
     @Enumerated(EnumType.STRING)
     private TinhTrang tinhTrang;
     private Reader reader;
+    private Long bookId;
 }

@@ -35,4 +35,6 @@ public class BookItem {
     @JoinColumn(name = "reader_id")
     private Reader reader;
 
+    @Column
+    private Long bookId;
 }
