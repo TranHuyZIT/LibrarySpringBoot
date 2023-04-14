@@ -8,6 +8,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import net.minidev.json.annotate.JsonIgnore;
 
+import java.util.Date;
+
 @Entity
 @Table(name="bookItem")
 @Builder
@@ -34,7 +36,8 @@ public class BookItem {
     @ManyToOne
     @JoinColumn(name = "reader_id")
     private Reader reader;
-
+    @Column
+    private Date hanTra;
     @Column
     private Long bookId;
 }

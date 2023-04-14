@@ -2,6 +2,7 @@ package com.ctu.Library.BookItem;
 
 import com.ctu.Library.Book.DTO.AddBookDTO;
 import com.ctu.Library.BookItem.DTO.AddBookItemDTO;
+import com.ctu.Library.BookItem.DTO.BookItemResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +16,7 @@ public class BookItemController {
     private final BookItemService bookItemService;
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<BookItem> getAllBookItems(){return bookItemService.getAllBookItems();}
+    public List<BookItemResponseDTO> getAllBookItems(){return bookItemService.getAllBookItems();}
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public BookItem addBookItems(@RequestBody AddBookItemDTO bookItem){
@@ -31,7 +32,7 @@ public class BookItemController {
     public BookItem deleteBookItems(@PathVariable Long id){return bookItemService.deleteBookItem(id);}
     @GetMapping("/reader/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public List<BookItem> getAllBorrowed(@PathVariable Long id){
+    public List<BookItemResponseDTO> getAllBorrowed(@PathVariable Long id){
       return bookItemService.getAllBookItems(id);
     }
 }
