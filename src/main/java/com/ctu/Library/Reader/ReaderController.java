@@ -24,6 +24,10 @@ public class ReaderController {
     ){
         return readerService.getAllReaders( readerId, pageNo, pageSize, sortBy, reverse);
     }
+    @GetMapping("/{id}")
+    public Reader getReader(@PathVariable Long id){
+        return readerService.getReader(id);
+    }
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ReaderDTO addReader(@RequestBody AddReaderDTO addReaderDTO){
