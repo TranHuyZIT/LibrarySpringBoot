@@ -23,6 +23,8 @@ public class AddReaderMapper {
         reader.name(addReaderDTO.getName());
         reader.address(addReaderDTO.getAddress() );
         reader.phone(addReaderDTO.getPhone());
+        reader.birth(addReaderDTO.getBirth());
+        System.out.println(addReaderDTO.getBirth());
         reader.email(addReaderDTO.getEmail());
         return reader.build();
     }

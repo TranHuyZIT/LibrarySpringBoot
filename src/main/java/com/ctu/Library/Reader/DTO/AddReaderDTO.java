@@ -15,6 +15,7 @@ import java.util.Date;
 public class AddReaderDTO {
     private String name;
     private String address;
+    private Date birth;
     private String phone;
     private String email;
 }

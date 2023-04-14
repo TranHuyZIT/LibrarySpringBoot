@@ -41,7 +41,11 @@ public class ReaderService {
         return readerRepository.findAll(pageable);
     }
     public Reader getReader( Long id){
-        return readerRepository.findOneByUser_Id(id);
+        System.out.println(id);
+
+        Reader reader = readerRepository.findOneByUser_Id(id);
+        System.out.println(reader);
+        return reader;
     }
     public ReaderDTO addReader(AddReaderDTO addReaderDTO){
         Reader reader = addReaderMapper.dtoToModel(addReaderDTO);
@@ -62,7 +66,7 @@ public class ReaderService {
         currentReader.setAddress(newReader.getAddress());
         currentReader.setPhone(newReader.getPhone());
         currentReader.setEmail(newReader.getEmail());
-
+        currentReader.setBirth(newReader.getBirth());
 
         Reader saved = readerRepository.save(currentReader);
         return  readerMapper.modelToDTO(saved);

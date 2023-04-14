@@ -25,6 +25,8 @@ public class Reader {
     @Column
     private String name;
     @Column
+    private Date birth;
+    @Column
     private String address;
     @Column
     private String phone;

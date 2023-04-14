@@ -25,7 +25,7 @@ public class ReaderController {
         return readerService.getAllReaders( readerId, pageNo, pageSize, sortBy, reverse);
     }
     @GetMapping("/{id}")
-    public Reader getReader(Long id){
+    public Reader getReader(@PathVariable Long id){
         return readerService.getReader(id);
     }
     @PostMapping
