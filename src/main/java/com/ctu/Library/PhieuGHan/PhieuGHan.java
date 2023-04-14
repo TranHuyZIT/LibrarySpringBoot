@@ -35,6 +35,8 @@ public class PhieuGHan {
 
     @ManyToOne
     private Reader reader;
+    @Column
+    private boolean isChecked = false;
 
     @CreationTimestamp
     @Column(updatable = false)
@@ -42,4 +44,5 @@ public class PhieuGHan {
 
     @UpdateTimestamp
     private Timestamp updatedAt;
+
 }

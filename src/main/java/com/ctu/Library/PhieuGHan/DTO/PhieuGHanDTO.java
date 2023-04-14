@@ -21,4 +21,5 @@ public class PhieuGHanDTO {
     private Set<PhieuGHanDetail> chitiets;
     private Librarian librarian;
     private Reader reader;
+    private boolean isChecked = false;
 }

@@ -19,4 +19,5 @@ public class AddPhieuGHanDTO {
     Set<AddPhieuGHanDetailDTO> chitiets;
     Long librarianId;
     Long readerId;
+    boolean isChecked = false;
 }
