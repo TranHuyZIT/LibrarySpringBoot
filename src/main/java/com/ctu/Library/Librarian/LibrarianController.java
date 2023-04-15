@@ -18,13 +18,12 @@ public class LibrarianController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public Page<Librarian> getAllLibrarians(
-            @RequestParam (defaultValue = "", name = "readerId") Long readerId,
             @RequestParam(defaultValue = "0", name="pageNo") Integer pageNo,
             @RequestParam(defaultValue = "10", name="pageSize") Integer pageSize,
             @RequestParam(defaultValue = "createdAt", name="sortBy") String sortBy,
             @RequestParam(defaultValue = "true", name="reverse") boolean reverse
     ){
-        return librarianService.getAllLibrarians(readerId, pageNo, pageSize, sortBy, reverse);
+        return librarianService.getAllLibrarians(pageNo, pageSize, sortBy, reverse);
     }
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -40,5 +39,11 @@ public class LibrarianController {
     @ResponseStatus(HttpStatus.OK)
     public LibrarianDTO deleteLibrarian(@PathVariable Long id) {
         return librarianService.deleteLibrarian(id);
+    }
+
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Librarian getLibrarian(@PathVariable Long id) {
+        return  librarianService.getLibrarian(id);
     }
 }
