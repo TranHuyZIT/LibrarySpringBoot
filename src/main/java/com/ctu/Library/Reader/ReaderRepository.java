@@ -11,4 +11,5 @@ import org.springframework.stereotype.Repository;
 public interface ReaderRepository extends JpaRepository<Reader, Long> {
     Page<Reader> findAll(Pageable pageable);
     Reader findOneByUser_Id(Long userId);
+    Page<Reader> findByNameContaining(String name, Pageable pageable);
 }

@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -29,14 +30,20 @@ public class ReaderService {
     private final UserRepository userRepository;
 
 
-    public Page<Reader> getAllReaders(Long readerId, Integer pageNo, Integer pageSize, String sortBy, Boolean reverse){
+    public Page<Reader> getAllReaders(String name, Long readerId, Integer pageNo, Integer pageSize, String sortBy, Boolean reverse){
         if (pageNo == -1){
             Pageable pageAndSortingRequest = PageRequest.of(0, Integer.MAX_VALUE, Sort.by(reverse? Sort.Direction.DESC : Sort.Direction. ASC, sortBy));
+            if (!Objects.equals(name, "")){
+                return readerRepository.findByNameContaining(name, pageAndSortingRequest);
+            }
             return readerRepository.findAll(pageAndSortingRequest);
         }
         Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by(reverse ? Sort.Direction.ASC : Sort.Direction.DESC, sortBy));
         if (readerId != null){
 //            return readerRepository.findAllByReader_Id(readerId, pageable);
+        }
+        if (!Objects.equals(name, "")){
+            return readerRepository.findByNameContaining(name, pageable);
         }
         return readerRepository.findAll(pageable);
     }

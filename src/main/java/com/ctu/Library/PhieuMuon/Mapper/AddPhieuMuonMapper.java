@@ -46,13 +46,17 @@ public class AddPhieuMuonMapper {
                     newDetail
             );
         }
-        Reader reader = readerRepository.findById(addPhieuMuonDTO.getReaderId()).orElseThrow(()
-                -> new CustomException("Không tồn tại độc giả với mã " + addPhieuMuonDTO.getReaderId(), HttpStatus.NOT_FOUND));
-        Librarian librarian = librarianRepository.findById(addPhieuMuonDTO.getLibrarianId()).orElseThrow(
-                () -> new CustomException("Không tồn tại thủ thư với mã " + addPhieuMuonDTO.getLibrarianId(), HttpStatus.NOT_FOUND)
-        );
-
-
+        Reader reader = null;
+        Librarian librarian = null;
+        if (addPhieuMuonDTO.getReaderId() != null){
+            reader = readerRepository.findById(addPhieuMuonDTO.getReaderId()).orElseThrow(()
+                    -> new CustomException("Không tồn tại độc giả với mã " + addPhieuMuonDTO.getReaderId(), HttpStatus.NOT_FOUND));
+        }
+        if (addPhieuMuonDTO.getLibrarianId() != null){
+            librarian =  librarianRepository.findById(addPhieuMuonDTO.getLibrarianId()).orElseThrow(
+                    () -> new CustomException("Không tồn tại thủ thư với mã " + addPhieuMuonDTO.getLibrarianId(), HttpStatus.NOT_FOUND)
+            );
+        }
         phieuMuon.reader(reader);
         phieuMuon.librarian(librarian);
         phieuMuon.chitiets(chitiets);

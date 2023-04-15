@@ -23,6 +23,7 @@ public class PhieuMuonService {
 
     public PhieuMuonDTO addPhieuMuon(AddPhieuMuonDTO addPhieuMuonDTO){
         PhieuMuon phieuMuon = addPhieuMuonMapper.dtoToModel(addPhieuMuonDTO);
+        System.out.println(phieuMuon);
         PhieuMuon saved =  phieuMuonRepository.save(phieuMuon);
         return phieuMuonMapper.modelToDTO(
                 saved
