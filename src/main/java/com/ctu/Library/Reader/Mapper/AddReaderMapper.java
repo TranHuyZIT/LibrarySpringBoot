@@ -21,14 +21,11 @@ public class AddReaderMapper {
         }
         Reader.ReaderBuilder reader = Reader.builder();
         reader.name(addReaderDTO.getName());
-        reader.birth(addReaderDTO.getBirth() );
         reader.address(addReaderDTO.getAddress() );
         reader.phone(addReaderDTO.getPhone());
+        reader.birth(addReaderDTO.getBirth());
+        System.out.println(addReaderDTO.getBirth());
         reader.email(addReaderDTO.getEmail());
-        User user = userRepository.findById(
-                addReaderDTO.getUser()
-        ).orElseThrow(()-> new CustomException("Không tìm thấy danh mục với mã người dùng" + addReaderDTO.getUser(), HttpStatus.NOT_FOUND));
-        reader.user(user);
         return reader.build();
     }
 }

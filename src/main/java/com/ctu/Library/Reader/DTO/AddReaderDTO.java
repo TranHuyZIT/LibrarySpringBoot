@@ -13,11 +13,9 @@ import java.util.Date;
 @AllArgsConstructor
 
 public class AddReaderDTO {
-    private Long id;
     private String name;
-    private Date birth;
     private String address;
+    private Date birth;
     private String phone;
     private String email;
-    private Long user;
 }

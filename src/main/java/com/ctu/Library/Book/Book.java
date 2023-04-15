@@ -9,8 +9,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name="book")
@@ -27,17 +26,21 @@ public class Book {
     private Long id;
     @Column(nullable = false)
     private String ten;
+    @Column(nullable = false, length = 6000)
+    private String mota;
     @Column(nullable = false)
-    private String namXB;
+    private Date namXB;
     @Column(nullable = false)
     private String tacGia;
+    @Column(nullable = false)
+    private String image;
     @ManyToOne
     @JoinColumn(name = "category_id")
-    private Category categoryId;
+    private Category category;
 
     @OneToMany
     @JsonIgnore
-    private Set<BookItem> listBookItem = new HashSet<>();
+    private List<BookItem> listBookItem = new ArrayList<>();
 
     @CreationTimestamp
     @Column(updatable = false)

@@ -15,6 +15,9 @@ public class PhieuMuonController {
     public PhieuMuonDTO addPhieuMuon(@RequestBody AddPhieuMuonDTO addPhieuMuonDTO){
         return phieuMuonService.addPhieuMuon(addPhieuMuonDTO);
     }
+    @PutMapping PhieuMuonDTO updatePhieuMuon(@RequestBody AddPhieuMuonDTO addPhieuMuonDTO, @PathVariable Long id){
+      return phieuMuonService.updatePhieuMuon(id, addPhieuMuonDTO);
+    }
     @GetMapping
     public Page<PhieuMuon> getAll(
             @RequestParam (defaultValue = "", name = "readerId") Long readerId,
@@ -25,7 +28,7 @@ public class PhieuMuonController {
     ){
         return phieuMuonService.getAll(readerId, pageNo, pageSize, sortBy, reverse);
     }
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     public PhieuMuon delete(@PathVariable Long id){
         return phieuMuonService.delete(id);
     }

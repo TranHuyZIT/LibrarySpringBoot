@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -29,18 +30,30 @@ public class ReaderService {
     private final UserRepository userRepository;
 
 
-    public Page<Reader> getAllReaders(Long readerId, Integer pageNo, Integer pageSize, String sortBy, Boolean reverse){
+    public Page<Reader> getAllReaders(String name, Long readerId, Integer pageNo, Integer pageSize, String sortBy, Boolean reverse){
         if (pageNo == -1){
             Pageable pageAndSortingRequest = PageRequest.of(0, Integer.MAX_VALUE, Sort.by(reverse? Sort.Direction.DESC : Sort.Direction. ASC, sortBy));
+            if (!Objects.equals(name, "")){
+                return readerRepository.findByNameContaining(name, pageAndSortingRequest);
+            }
             return readerRepository.findAll(pageAndSortingRequest);
         }
         Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by(reverse ? Sort.Direction.ASC : Sort.Direction.DESC, sortBy));
         if (readerId != null){
 //            return readerRepository.findAllByReader_Id(readerId, pageable);
         }
+        if (!Objects.equals(name, "")){
+            return readerRepository.findByNameContaining(name, pageable);
+        }
         return readerRepository.findAll(pageable);
     }
+    public Reader getReader( Long id){
+        System.out.println(id);
 
+        Reader reader = readerRepository.findOneByUser_Id(id);
+        System.out.println(reader);
+        return reader;
+    }
     public ReaderDTO addReader(AddReaderDTO addReaderDTO){
         Reader reader = addReaderMapper.dtoToModel(addReaderDTO);
         return readerMapper.modelToDTO(readerRepository.save(reader));
@@ -53,17 +66,14 @@ public class ReaderService {
     }
 
     public ReaderDTO updateReader( Long id, AddReaderDTO addReaderDTO){
-        Reader currentReader = readerRepository.findById(id).orElseThrow(() -> new CustomException("Không tìm thấy người dùng với mã " + id, HttpStatus.NOT_FOUND));
+        Reader currentReader = getReader(id);
         Reader newReader = addReaderMapper.dtoToModel(addReaderDTO);
 
         currentReader.setName(newReader.getName());
-        currentReader.setBirth(newReader.getBirth());
         currentReader.setAddress(newReader.getAddress());
         currentReader.setPhone(newReader.getPhone());
         currentReader.setEmail(newReader.getEmail());
-
-        User user = userRepository.findById(addReaderDTO.getUser()).orElseThrow(() -> new CustomException("Không tìm thấy người dùng với mã " + id, HttpStatus.NOT_FOUND));
-        currentReader.setUser(user);
+        currentReader.setBirth(newReader.getBirth());
 
         Reader saved = readerRepository.save(currentReader);
         return  readerMapper.modelToDTO(saved);

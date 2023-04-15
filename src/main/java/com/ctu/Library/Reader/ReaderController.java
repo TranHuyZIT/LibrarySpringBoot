@@ -16,13 +16,18 @@ public class ReaderController {
     private final ReaderService readerService;
     @GetMapping
     public Page<Reader> getAllReaders(
+                @RequestParam(defaultValue = "", name = "name") String name,
                 @RequestParam (defaultValue = "", name = "readerId") Long readerId,
                 @RequestParam(defaultValue = "0", name="pageNo") Integer pageNo,
                 @RequestParam(defaultValue = "10", name="pageSize") Integer pageSize,
                 @RequestParam(defaultValue = "createdAt", name="sortBy") String sortBy,
                 @RequestParam(defaultValue = "true", name="reverse") boolean reverse
     ){
-        return readerService.getAllReaders( readerId, pageNo, pageSize, sortBy, reverse);
+        return readerService.getAllReaders( name, readerId, pageNo, pageSize, sortBy, reverse);
+    }
+    @GetMapping("/{id}")
+    public Reader getReader(@PathVariable Long id){
+        return readerService.getReader(id);
     }
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)

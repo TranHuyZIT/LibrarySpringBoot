@@ -20,6 +20,7 @@ import org.springframework.stereotype.Component;
 import java.util.HashSet;
 import java.util.Set;
 
+
 @Component
 @RequiredArgsConstructor
 public class AddPhieuMuonMapper {
@@ -35,6 +36,7 @@ public class AddPhieuMuonMapper {
         PhieuMuon.PhieuMuonBuilder phieuMuon = PhieuMuon.builder();
         phieuMuon.ngayMuon(addPhieuMuonDTO.getNgayMuon());
         phieuMuon.note(addPhieuMuonDTO.getNote());
+        phieuMuon.isChecked(addPhieuMuonDTO.isChecked());
         Set<PhieuMuonDetail> chitiets = new HashSet<>();
         for(AddPhieuMuonDetailDTO chitiet: addPhieuMuonDTO.getChitiets()){
             PhieuMuonDetail newDetail = phieuMuonDetailRepository.save(
@@ -44,11 +46,17 @@ public class AddPhieuMuonMapper {
                     newDetail
             );
         }
-        Reader reader = readerRepository.findById(addPhieuMuonDTO.getReaderId()).orElseThrow(()
-                -> new CustomException("Không tồn tại độc giả với mã " + addPhieuMuonDTO.getReaderId(), HttpStatus.NOT_FOUND));
-        Librarian librarian = librarianRepository.findById(addPhieuMuonDTO.getLibrarianId()).orElseThrow(
-                () -> new CustomException("Không tồn tại thủ thư với mã " + addPhieuMuonDTO.getLibrarianId(), HttpStatus.NOT_FOUND)
-        );
+        Reader reader = null;
+        Librarian librarian = null;
+        if (addPhieuMuonDTO.getReaderId() != null){
+            reader = readerRepository.findById(addPhieuMuonDTO.getReaderId()).orElseThrow(()
+                    -> new CustomException("Không tồn tại độc giả với mã " + addPhieuMuonDTO.getReaderId(), HttpStatus.NOT_FOUND));
+        }
+        if (addPhieuMuonDTO.getLibrarianId() != null){
+            librarian =  librarianRepository.findById(addPhieuMuonDTO.getLibrarianId()).orElseThrow(
+                    () -> new CustomException("Không tồn tại thủ thư với mã " + addPhieuMuonDTO.getLibrarianId(), HttpStatus.NOT_FOUND)
+            );
+        }
         phieuMuon.reader(reader);
         phieuMuon.librarian(librarian);
         phieuMuon.chitiets(chitiets);

@@ -32,6 +32,7 @@ public class AddPhieuGHanMapper {
           PhieuGHan.PhieuGHanBuilder phieuGHan = PhieuGHan.builder();
           phieuGHan.ngayGHan(addPhieuGHanDTO.getNgayGHan());
           phieuGHan.note(addPhieuGHanDTO.getNote());
+          phieuGHan.isChecked(addPhieuGHanDTO.isChecked());
           Set<PhieuGHanDetail> chitiets = new HashSet<>();
           for(AddPhieuGHanDetailDTO chitiet: addPhieuGHanDTO.getChitiets()) {
                PhieuGHanDetail newDetail = phieuGHanDetailRepository.save(
@@ -41,11 +42,17 @@ public class AddPhieuGHanMapper {
                        newDetail
                );
           }
-          Reader reader = readerRepository.findById(addPhieuGHanDTO.getReaderId()).orElseThrow(()
-                  -> new CustomException("Không tồn tại độc giả với mã " + addPhieuGHanDTO.getReaderId(), HttpStatus.NOT_FOUND));
-          Librarian librarian = librarianRepository.findById(addPhieuGHanDTO.getLibrarianId()).orElseThrow(
-                  () -> new CustomException("Không tồn tại thủ thư với mã " + addPhieuGHanDTO.getLibrarianId(), HttpStatus.NOT_FOUND)
-          );
+          Reader reader = null;
+          if (addPhieuGHanDTO.getReaderId() != null){
+               reader = readerRepository.findById(addPhieuGHanDTO.getReaderId()).orElseThrow(()
+                       -> new CustomException("Không tồn tại độc giả với mã " + addPhieuGHanDTO.getReaderId(), HttpStatus.NOT_FOUND));
+          }
+          Librarian librarian = null;
+          if (addPhieuGHanDTO.getLibrarianId() != null){
+               librarian =  librarianRepository.findById(addPhieuGHanDTO.getLibrarianId()).orElseThrow(
+                       () -> new CustomException("Không tồn tại thủ thư với mã " + addPhieuGHanDTO.getLibrarianId(), HttpStatus.NOT_FOUND)
+               );
+          }
           phieuGHan.chitiets(chitiets);
           phieuGHan.librarian(librarian);
           phieuGHan.reader(reader);

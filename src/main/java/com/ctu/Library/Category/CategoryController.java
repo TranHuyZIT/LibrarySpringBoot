@@ -27,4 +27,10 @@ public class CategoryController {
     public CategoryDTO updateCategory(@PathVariable Long id, @RequestBody Category newCategory){
         return categoryService.updateCategory(id, newCategory);
     }
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Category getOne(@PathVariable Long id){
+        return categoryService.findById(id);
+    }
 }
+
