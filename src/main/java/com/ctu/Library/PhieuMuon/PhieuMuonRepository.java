@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PhieuMuonRepository extends JpaRepository<PhieuMuon, Long> {
     Page<PhieuMuon> findAll(Pageable pageable);
-//    Page<PhieuMuon> findAllByReader_Id(Long readerId, Pageable pageable);
+    Page<PhieuMuon> findAllByReaderId(Long readerId, Pageable pageable);
 }

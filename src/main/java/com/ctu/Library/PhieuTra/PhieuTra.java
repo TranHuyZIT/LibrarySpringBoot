@@ -31,6 +31,8 @@ public class PhieuTra {
     private String note = "";
     @OneToMany
     private Set<PhieuTraDetail> chitiets;
+    @Column
+    private boolean isChecked = false;
 
     @ManyToOne
     private Librarian librarian;

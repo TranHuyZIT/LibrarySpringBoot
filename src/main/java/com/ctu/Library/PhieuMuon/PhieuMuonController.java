@@ -15,6 +15,10 @@ public class PhieuMuonController {
     public PhieuMuonDTO addPhieuMuon(@RequestBody AddPhieuMuonDTO addPhieuMuonDTO){
         return phieuMuonService.addPhieuMuon(addPhieuMuonDTO);
     }
+    @PutMapping("check/{id}")
+    public PhieuMuon check(@PathVariable Long id){
+        return phieuMuonService.checkPhieuMuon(id);
+    }
     @PutMapping PhieuMuonDTO updatePhieuMuon(@RequestBody AddPhieuMuonDTO addPhieuMuonDTO, @PathVariable Long id){
       return phieuMuonService.updatePhieuMuon(id, addPhieuMuonDTO);
     }
@@ -26,10 +30,15 @@ public class PhieuMuonController {
             @RequestParam(defaultValue = "createdAt", name="sortBy") String sortBy,
             @RequestParam(defaultValue = "true", name="reverse") boolean reverse
     ){
-        return phieuMuonService.getAll(readerId, pageNo, pageSize, sortBy, reverse);
+        return phieuMuonService.getAll(readerId, pageNo - 1, pageSize, sortBy, reverse);
     }
     @DeleteMapping("/{id}")
     public PhieuMuon delete(@PathVariable Long id){
         return phieuMuonService.delete(id);
+    }
+
+    @GetMapping("/{id}")
+    public PhieuMuon getOne(@PathVariable Long id){
+        return phieuMuonService.findOne(id);
     }
 }

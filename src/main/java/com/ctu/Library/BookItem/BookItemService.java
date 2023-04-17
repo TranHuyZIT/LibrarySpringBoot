@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -31,6 +32,9 @@ public class BookItemService {
   }
     public void deleteByBookId(Long bookId){
 
+    }
+    public void deleteMany(List<BookItem> bookItemSet){
+        bookItemRepository.deleteAll(bookItemSet);
     }
     public BookItem addBookItems(AddBookItemDTO addBookItemDTO){
         BookItem bookItem = addBookItemMapper.dtoToModel(addBookItemDTO);

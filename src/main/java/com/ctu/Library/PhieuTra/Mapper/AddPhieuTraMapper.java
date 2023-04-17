@@ -34,6 +34,7 @@ public class AddPhieuTraMapper {
         PhieuTra.PhieuTraBuilder phieuTra = PhieuTra.builder();
         phieuTra.ngayTra(addPhieuTraDTO.getNgayTra());
         phieuTra.note(addPhieuTraDTO.getNote());
+        phieuTra.isChecked(addPhieuTraDTO.isChecked());
         Set<PhieuTraDetail> chitiets = new HashSet<>();
         for(AddPhieuTraDetailDTO chitiet: addPhieuTraDTO.getChitiets()){
             PhieuTraDetail newDetail = phieuTraDetailRepository.save(

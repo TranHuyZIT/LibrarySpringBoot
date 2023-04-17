@@ -10,6 +10,7 @@ import com.ctu.Library.BookItem.Mapper.AddBookItemMapper;
 import com.ctu.Library.Category.Category;
 import com.ctu.Library.Category.CategoryService;
 import com.ctu.Library.ExceptionHandling.CustomException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -61,6 +62,7 @@ public class BookService {
     }
 
 
+    @Transactional(rollbackOn = {Throwable.class, Exception.class})
     public Book addBook(AddBookDTO addBookDTO){
         System.out.println(addBookDTO.getListBookItem());
         Book book =  addBookMapper.dtoToModel(addBookDTO);
@@ -76,7 +78,7 @@ public class BookService {
         System.out.println(book);
         return bookRepository.save(book);
     }
-
+    @Transactional(rollbackOn = {Throwable.class, Exception.class})
     public Book updateBook(Long id,AddBookDTO newBookDTO){
         Book currentBook = bookRepository.findById(id)
                 .orElseThrow(() -> new CustomException("Không tìm thấy danh mục với mã " + id, HttpStatus.NOT_FOUND));
@@ -87,8 +89,10 @@ public class BookService {
         currentBook.setCategory(category);
 
         List<BookItem> bookItemSet = new ArrayList<>();
+        bookItemService.deleteMany(currentBook.getListBookItem());
         for (AddBookItemDTO addBookItemDTO: newBookDTO.getListBookItem()){
-          bookItemSet.add(bookItemService.addBookItems(addBookItemDTO));
+            addBookItemDTO.setBookId(currentBook.getId());
+            bookItemSet.add(bookItemService.addBookItems(addBookItemDTO));
         }
         currentBook.setListBookItem(bookItemSet);
 
