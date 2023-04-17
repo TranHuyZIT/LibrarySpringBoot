@@ -12,7 +12,7 @@ import java.sql.Timestamp;
 import java.util.*;
 
 @Entity
-@Table(name="book")
+@Table(name="book", indexes = @Index(columnList = "category_id"))
 @Builder
 @RequiredArgsConstructor
 @AllArgsConstructor

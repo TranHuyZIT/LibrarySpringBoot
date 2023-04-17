@@ -19,4 +19,5 @@ public class AddPhieuTraDTO {
     Set<AddPhieuTraDetailDTO> chitiets;
     Long readerId;
     Long librarianId;
+    boolean isChecked;
 }

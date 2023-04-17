@@ -15,6 +15,16 @@ public class PhieuTraController {
     public PhieuTraDTO addPhieuTra(@RequestBody AddPhieuTraDTO addPhieuTraDTO){
         return phieuTraService.addPhieuTra(addPhieuTraDTO);
     }
+    @GetMapping("/{id}")
+    public PhieuTra getOne(@PathVariable Long id) {
+        return phieuTraService.getOne(id);
+    }
+
+    @PutMapping("/check/{id}")
+    public PhieuTra check(@PathVariable Long id) {
+        return phieuTraService.check(id);
+    }
+
     @GetMapping
     public Page<PhieuTra> getAll(
             @RequestParam (defaultValue = "", name = "readerId") Long readerId,
@@ -23,9 +33,9 @@ public class PhieuTraController {
             @RequestParam(defaultValue = "createdAt", name="sortBy") String sortBy,
             @RequestParam(defaultValue = "true", name="reverse") boolean reverse
     ){
-        return phieuTraService.getAll(readerId, pageNo, pageSize, sortBy, reverse);
+        return phieuTraService.getAll(readerId, pageNo - 1, pageSize, sortBy, reverse);
     }
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     public PhieuTra delete(@PathVariable Long id){
         return phieuTraService.delete(id);
     }
